@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>42 Coffee Cups Test Assignment</h2>
+	<div id='content' style='min-width:600px' >
+		<div style="float:left;width:49%;">
+			<p>{{ object.name }}</p>
+			<p>{{ object.last_name }}</p>
+			<p>{{ object.birth }}</p>
+			<div style='height:24px'></div>
+			<p>bio : </p>			
+		</div>
+		
+		<div style="float:right;width:49%">
+			<p>{{ object.contacts }}</p>
+			<p>Email: {{ object.email }}</p>
+			<p>Jabber: {{ object.jabber }}</p>
+			<p>Skype: {{ object.skype }}</p>
+			<p>Other contacts: {{ object.other_contacts }}</p>
+		</div>
+		
+		<div style="float:left;width:45%; border:1px solid grey; padding:5px ">
+			<p>{{ object.bio|safe }}</p>
+		</div>
+	</div>
+	
+	
+	
+{% endblock %}
