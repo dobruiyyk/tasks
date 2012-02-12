@@ -1,6 +1,8 @@
 from windmill.authoring import WindmillTestClient
 
 def test_recordingSuite0():
+    '''windmill ->> main page
+    '''
     client = WindmillTestClient(__name__)
 
     client.asserts.assertTextIn(xpath=u'/html/body/h2', validator=u'42 Coffee Cups Test Assignment')
