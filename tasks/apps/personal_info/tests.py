@@ -23,7 +23,7 @@ class FilesTestCase(TestCase):
         '''
         admin=User.objects.get(username='admin')
         self.assertEqual('admin', admin.username)
-        self.assertEqual('admin', admin.password)
+        self.assertEqual(u'sha1$7e4c2$b0921efc8462153d88a755436e3f371d67dadf1d', admin.password)
 
 from os import path
 from windmill.authoring import djangotest
