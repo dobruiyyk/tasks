@@ -1,5 +1,10 @@
-all_tests : test 
+MANAGE=django-admin.py
 
 test:
-	@clear
-	python manage.py test personal_info
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info
+
+run:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) runserver
+
+syncdb:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) syncdb --noinput
