@@ -1,7 +1,7 @@
 from django.test import TestCase
-
-from django.contrib.auth.models import User
 import os
+from django.contrib.auth.models import User
+from apps.personal_info.models import Person
 
 class FilesTestCase(TestCase):
     def testFiles(self):
@@ -19,12 +19,15 @@ class FilesTestCase(TestCase):
         
 
     def testFixture(self):
-        '''Fixture check -*- default admin@admin user presence -*-
+        '''Fixture check -*- default admin@admin user presence + info-*-
         '''
         admin=User.objects.get(username='admin')
         self.assertEqual('admin', admin.username)
-        self.assertEqual(u'sha1$7e4c2$b0921efc8462153d88a755436e3f371d67dadf1d', admin.password)
-
+        self.assertEqual(u'sha1$7e4c2$b0921efc8462153d88a755436e3f371d67dadf1d',
+                         admin.password)
+        info = Person.objects.get(pk=1)
+        self.assertEqual('Dmitry', info.name)
+        
 from os import path
 from windmill.authoring import djangotest
  

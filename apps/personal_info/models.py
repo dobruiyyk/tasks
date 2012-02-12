@@ -1,16 +1,14 @@
 from django.db import models
 
 class Person(models.Model):
-    pass
+    name = models.CharField(max_length=40)
+    last_name = models.CharField(max_length=40)
+    birth = models.DateField()
+    bio = models.TextField(blank=True)
+    contacts = models.CharField(max_length=40)
+    jabber = models.EmailField(max_length=40)
+    skype = models.CharField(max_length=40, blank=True)
+    other_contacts = models.TextField() 
 
-'''
-'Name')
-'Last name')
-'Date of birth')
-'Bio')
-'Contacts')
-'Jabber')
-'Skype')
-'Other contacts')
-Other contacts')
-'''
+    def __unicode__(self):
+        return '%s %s' % (self.name, self.last_name)

@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "personal_info.person", "fields": {"bio": "", "last_name": "Kireyev", "name": "Dmitry", "contacts": "ul. Prospekt Mira 15 \u2022 Rivne, Ukraine", "other_contacts": "dobruiyyk@gmail.com", "birth": "1987-02-18", "skype": "", "jabber": "dobruiyyk@jabber.ru"}}]
