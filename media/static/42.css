@@ -1,0 +1,23 @@
+#content {
+	min-width: 600px;
+	}
+#left {
+	float: left; 
+	width: 49%; 
+	display: block;
+	}
+#right {
+	float: right; 
+	width: 49%; 
+	display: block;
+	}
+#clear {
+	clear: both;
+	}
+#foot {
+	min-height: 50px;
+	padding:10px;
+	}
+#foot .bord {
+	border: 1px solid grey;
+	}

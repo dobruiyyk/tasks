@@ -1,5 +1,6 @@
 import os
 project_dir = os.getcwd()
+p_d = '.'.join(project_dir.split('/'))[1:]
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -23,8 +24,9 @@ DATABASES = {
 FIXTURE_DIRS = (
    project_dir + '/fixtures/',
    project_dir + '/apps/personal_info/fixtures/',
+   project_dir + '/apps/tools/fixtures/',
 )
-
+GEOIP_PATH= project_dir + '/media/geoip_dat/'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -78,6 +80,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    project_dir + '/media/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -104,6 +107,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'apps.tools.middleware.save_httprequest_to_db',
 )
 
 ROOT_URLCONF = 'urls'
@@ -127,6 +131,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'tasks.apps.personal_info',
+    'tasks.apps.tools',
     
 
 )

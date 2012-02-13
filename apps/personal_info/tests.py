@@ -15,7 +15,7 @@ class FilesTestCase(TestCase):
         is_file=os.path.isfile
         self.assertEqual(True, is_file(project_dir + '/.gitignore'))
         self.assertEqual(True, is_file(project_dir + '/Makefile'))
-        self.assertEqual(True, is_file(project_dir + '/requrements.txt'))
+        self.assertEqual(True, is_file(project_dir + '/requirements.txt'))
         
 
     def testFixture(self):

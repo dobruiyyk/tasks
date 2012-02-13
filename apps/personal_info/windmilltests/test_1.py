@@ -1,7 +1,7 @@
 from windmill.authoring import WindmillTestClient
 
 def test_recordingSuite0():
-    '''windmill ->> main page
+    '''windmill ->> '/' - main page test
     '''
     client = WindmillTestClient(__name__)
 
@@ -15,3 +15,6 @@ def test_recordingSuite0():
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/div[2]/p[3]", validator=u'Jabber')
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/div[2]/p[4]", validator=u'Skype')
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/div[2]/p[5]", validator=u'Other contacts')
+ 
+    client.asserts.assertNode(xpath=u"//div[@id='foot']/p")
+    client.asserts.assertNode(link=u'requests')
