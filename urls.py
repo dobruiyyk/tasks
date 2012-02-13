@@ -19,7 +19,10 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve', 
                 { 'document_root': 
-                  '%s/media/js/tiny_mce/'%project_dir }),
+                  '%s/media/js/tiny_mce/' % project_dir }),
+    
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', 
+        {'document_root' : '%s/media/static/' % project_dir}),
     
     url(r'^$', main_page),
 )
