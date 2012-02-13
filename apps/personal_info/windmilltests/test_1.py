@@ -16,5 +16,5 @@ def test_recordingSuite0():
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/div[2]/p[4]", validator=u'Skype')
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/div[2]/p[5]", validator=u'Other contacts')
  
-    client.asserts.assertNode(xpath=u'/html/body/div[2]/p')
+    client.asserts.assertNode(xpath=u"//div[@id='foot']/p")
     client.asserts.assertNode(link=u'requests')

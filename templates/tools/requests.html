@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id='content' style='min-width:600px; '>
+	{% for i in last_requests %}
+		<p style='word-spacing:4px; '>
+		{% for str in i %}
+			 {{ str|safe }} 
+		{% endfor %}
+		</p>
+	{% endfor %}
+<div>
+{% endblock %}
