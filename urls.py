@@ -26,5 +26,5 @@ urlpatterns = patterns('',
         {'document_root' : '%s/media/static/' % project_dir}),
     
     url(r'^$', main_page, name='main'),
-    url(r'^requests/$', requests),
+    url(r'^requests/$', requests, name='requests'),
 )
