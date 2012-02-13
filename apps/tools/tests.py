@@ -4,6 +4,8 @@ from django.test.client import Client
 
 
 class RequestMWTestCase(TestCase):
+    ''' test model that stores all http requests in the DB
+    '''
     
     def testHttpRequests(self):
         '''Http request -> +HttpRequest object

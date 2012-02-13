@@ -3,6 +3,8 @@ from apps.tools.models import HttpRequest
 import datetime
 
 class save_httprequest_to_db():
+    '''middleware that stores all http requests in the DB
+    '''
     def process_request(self, request):
         g = GeoIP()
         user = request.user if not 'Anonumous' else ':('
