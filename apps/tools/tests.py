@@ -18,3 +18,14 @@ class RequestMWTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         objects_num_after = objects_num()
         self.assertEqual(1, objects_num_after - objects_num_before)
+
+    def testContextProcessor(self):
+        '''Context processor with settings.__dict__
+        '''
+        import settings
+        c = Client()
+        response = c.get('/')
+        settings_dict = settings.__dict__
+        context_dict = response.context
+        for i,j in settings_dict:
+            self.assertEqual(context_dict[i], j)
