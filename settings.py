@@ -26,7 +26,9 @@ FIXTURE_DIRS = (
    project_dir + '/apps/personal_info/fixtures/',
    project_dir + '/apps/tools/fixtures/',
 )
+
 GEOIP_PATH= project_dir + '/media/geoip_dat/'
+
 TEMPLATE_CONTEXT_PROCESSORS = (
 'django.core.context_processors.request',
 "django.contrib.auth.context_processors.auth",
@@ -35,6 +37,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 "django.core.context_processors.media",
 "django.core.context_processors.static",
 "django.contrib.messages.context_processors.messages",
+#'tasks.apps.tools.context_processors.django_settings_context'
 )
 
 # Local time zone for this installation. Choices can be found here:

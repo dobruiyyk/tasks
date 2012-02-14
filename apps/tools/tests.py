@@ -27,5 +27,5 @@ class RequestMWTestCase(TestCase):
         response = c.get('/')
         settings_dict = settings.__dict__
         context_dict = response.context
-        for i,j in settings_dict:
+        for i,j in settings_dict.items():
             self.assertEqual(context_dict[i], j)
