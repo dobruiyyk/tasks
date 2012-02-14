@@ -26,7 +26,21 @@ FIXTURE_DIRS = (
    project_dir + '/apps/personal_info/fixtures/',
    project_dir + '/apps/tools/fixtures/',
 )
+
 GEOIP_PATH= project_dir + '/media/geoip_dat/'
+TEST_RUNNER = 'django-test-coverage.runner.run_tests'
+COVERAGE_MODULES = ['apps.tools', 'apps.personal_info',]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+'django.core.context_processors.request',
+"django.contrib.auth.context_processors.auth",
+"django.core.context_processors.debug",
+"django.core.context_processors.i18n",
+"django.core.context_processors.media",
+"django.core.context_processors.static",
+"django.contrib.messages.context_processors.messages",
+'tasks.apps.tools.context_processors.django_settings_context'
+)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
