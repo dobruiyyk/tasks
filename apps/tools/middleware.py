@@ -1,4 +1,4 @@
-from django.contrib.gis.utils import GeoIP
+from django.contrib.gis.utils.geoip import GeoIP
 from apps.tools.models import HttpRequest
 import datetime
 

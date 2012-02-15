@@ -1,6 +1,5 @@
 import os
 project_dir = os.getcwd()
-p_d = '.'.join(project_dir.split('/'))[1:]
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -22,11 +21,11 @@ DATABASES = {
     }
 }
 FIXTURE_DIRS = (
-   project_dir + '/fixtures/',
-   project_dir + '/apps/personal_info/fixtures/',
-   project_dir + '/apps/tools/fixtures/',
+   os.path.join(project_dir, 'fixtures'),
+   os.path.join(project_dir, 'apps', 'personal_info', 'fixtures'),
+   os.path.join(project_dir, 'apps', 'tools', 'fixtures'),
 )
-GEOIP_PATH= project_dir + '/media/geoip_dat/'
+GEOIP_PATH= os.path.join(project_dir, 'media', 'geoip_dat')
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -53,7 +52,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = project_dir + '/media/'
+MEDIA_ROOT = os.path.join(project_dir, '/media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -116,7 +115,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    project_dir + '/templates',
+    os.path.join(project_dir, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -130,8 +129,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'tasks.apps.personal_info',
-    'tasks.apps.tools',
+    'apps.personal_info',
+    'apps.tools',
     
 
 )
