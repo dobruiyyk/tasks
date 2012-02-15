@@ -7,15 +7,10 @@ class FilesTestCase(TestCase):
     def testFiles(self):
         '''Files existance check -*-.gitignore, Makefile, requrements.txt -*-
         '''
-        current_dir = os.getcwd()
-        current_dir_list = current_dir.split('/')
-        task_num = current_dir_list.index('tasks') + 1
-        project_dir_list = current_dir_list[:task_num]
-        project_dir = '/'.join(project_dir_list)
         is_file=os.path.isfile
-        self.assertEqual(True, is_file(project_dir + '/.gitignore'))
-        self.assertEqual(True, is_file(project_dir + '/Makefile'))
-        self.assertEqual(True, is_file(project_dir + '/requrements.txt'))
+        self.assertEqual(True, is_file('.gitignore'))
+        self.assertEqual(True, is_file('Makefile'))
+        self.assertEqual(True, is_file('requirements.txt'))
         
 
     def testFixture(self):

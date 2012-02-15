@@ -23,8 +23,21 @@ DATABASES = {
 FIXTURE_DIRS = (
    project_dir + '/fixtures/',
    project_dir + '/apps/personal_info/fixtures/',
+   project_dir + '/apps/tools/fixtures/',
 )
 
+TEST_RUNNER = 'django-test-coverage.runner.run_tests'
+COVERAGE_MODULES = ['apps.personal_info',]
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+'django.core.context_processors.request',
+"django.contrib.auth.context_processors.auth",
+"django.core.context_processors.debug",
+"django.core.context_processors.i18n",
+"django.core.context_processors.media",
+"django.core.context_processors.static",
+"django.contrib.messages.context_processors.messages",
+)
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -78,6 +91,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    project_dir + '/media/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -126,9 +140,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'tasks.apps.personal_info',
-    
-
+    'apps.personal_info',
 )
 
 # A sample logging configuration. The only tangible logging
