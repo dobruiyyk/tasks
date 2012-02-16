@@ -1,14 +1,17 @@
+div {
+	padding : 5px;
+	}
 #content {
 	min-width: 600px;
 	}
 #left {
 	float: left; 
-	width: 49%; 
+	width: 47%; 
 	display: block;
 	}
 #right {
 	float: right; 
-	width: 49%; 
+	width: 47%; 
 	display: block;
 	}
 #clear {
