@@ -14,3 +14,6 @@ windmill:
 
 shell:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) shell
+
+pylint:
+	pylint --generated-members=objects ../tasks
