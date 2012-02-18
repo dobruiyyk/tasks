@@ -1,5 +1,7 @@
 from django.test import TestCase
 from apps.tools.models import HttpRequest
+from django.test.utils import setup_test_environment
+setup_test_environment()
 from django.test.client import Client
 
 class RequestMWTestCase(TestCase):
@@ -18,21 +20,18 @@ class RequestMWTestCase(TestCase):
         self.assertEqual(1, objects_num_after - objects_num_before)
 
     def testContextProcessor(self):
-        '''Context processor with settings.__dict__
+        '''Context processor with django.conf.settings
         '''
         from django.conf import settings
         c = Client()
         response = c.get('/')
-        settings_dict = settings.__dict__
-        context_dict = response.context
-        for i,j in settings_dict.items():
-            self.assertEqual(context_dict[i], j)
+        self.assertEqual(response.context['settings'], settings)
         
     def testSettings(self):
         '''Required params in settings.py
         '''
-        import settings
-        self.assertEqual(True, 'TEMPLATE_CONTEXT_PROCESSORS' in settings.__dict__)
+        from django.conf import settings
+        self.assertEqual(True, bool(settings.TEMPLATE_CONTEXT_PROCESSORS))
 
 from os import path
 from windmill.authoring import djangotest
@@ -43,7 +42,7 @@ for nm in os.listdir(wmtests):
         testnm = nm[:-3]
         class WindmillTest(djangotest.WindmillDjangoUnitTest):
             fixtures = [ 'http_requests_db.json']
-            test_dir = path.join(wmtests,nm)
+            test_dir = path.join(wmtests, nm)
             browser = "firefox"
         WindmillTest.__name__ = testnm
         globals()[testnm] = WindmillTest
