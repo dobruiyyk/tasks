@@ -2,6 +2,9 @@ from django.test import TestCase
 import os
 from django.contrib.auth.models import User
 from apps.personal_info.models import Person
+from django.test.utils import setup_test_environment
+setup_test_environment()
+from django.test.client import Client
 
 class FilesTestCase(TestCase):
     '''ticket1 : required files
@@ -23,6 +26,38 @@ class FilesTestCase(TestCase):
                          admin.password)
         info = Person.objects.get(pk=1)
         self.assertEqual('Dmitry', info.name)
+
+class LoginTestCase(TestCase):
+    '''Different situations where user authentification is involved
+    '''
+    def setUp(self):
+        '''Every test needs a client.
+        '''
+        self.c = Client()
+
+    
+    def test_login(self):
+        '''url '/login/' : test client login capability
+        '''
+        self.c.post('/login/', {'name': 'admin', 'passwd': 'admin'})
+        response = self.c.get('/login/')
+        self.assertEqual(response.context['name'], 'admin')
+        self.c.logout()
+        response = self.c.get('/login/')
+        self.assertNotEqual(response.context['name'], 'admin')
+        
+    def test_form_auth(self):
+        '''get '/form/' = redirect to login page if anonymous 
+                                else response.status_code, 200
+        '''
+        response = self.c.get('/form/', follow=True)
+        self.assertEqual(response.redirect_chain,
+                         [(u'http://testserver/login/', 302)],)
+        self.c.login(username='admin', password='admin')
+        self.assertEqual(response.context['name'], 'admin')
+        response = self.c.get('/form/')
+        self.assertEqual(response.status_code, 200)
+
         
 from os import path
 from windmill.authoring import djangotest
