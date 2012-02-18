@@ -27,7 +27,7 @@ class FilesTestCase(TestCase):
         info = Person.objects.get(pk=1)
         self.assertEqual('Dmitry', info.name)
 
-class LoginTestCase(TestCase):
+class AuthFormTestCase(TestCase):
     '''Different situations where user authentification is involved
     '''
     def setUp(self):
@@ -35,16 +35,15 @@ class LoginTestCase(TestCase):
         '''
         self.c = Client()
 
-    
     def test_login(self):
         '''url '/login/' : test client login capability
         '''
-        self.c.post('/login/', {'name': 'admin', 'passwd': 'admin'})
+        self.c.post('/login/', {'username': 'admin', 'password': 'admin'})
         response = self.c.get('/login/')
-        self.assertEqual(response.context['name'], 'admin')
+        self.assertEqual(response.context['user'].username, u'admin')
         self.c.logout()
         response = self.c.get('/login/')
-        self.assertNotEqual(response.context['name'], 'admin')
+        self.assertNotEqual(response.context['user'].username, u'admin')
         
     def test_form_auth(self):
         '''get '/form/' = redirect to login page if anonymous 
@@ -53,11 +52,27 @@ class LoginTestCase(TestCase):
         response = self.c.get('/form/', follow=True)
         self.assertEqual(response.redirect_chain,
                          [(u'http://testserver/login/', 302)],)
+        self.assertEqual(response.context['user'].username, u'Anonymous')
+        
         self.c.login(username='admin', password='admin')
+        response = self.c.get('/form/', follow=True)
         self.assertEqual(response.context['name'], 'admin')
         response = self.c.get('/form/')
         self.assertEqual(response.status_code, 200)
-
+        
+    def test_form_func(self):
+        '''functionality of the /form/ form
+        '''
+        self.c.post('/login/', {'username': 'admin', 'password': 'admin'})
+        person_objects = Person.objects.get(pk=1).__dict__
+        from copy import deepcopy
+        person_objects_copy = deepcopy(person_objects)
+        self.assertEqual(sorted(person_objects), sorted(person_objects_copy))
+        for i in ('bio', 'last_name', 'name', 'contacts',
+                  'other_contacts', 'skype', 'email', 'jabber'):
+            self.assertEqual(person_objects[i], person_objects_copy[i])
+            self.c.post('/form/', {'%s'%i: '1@1.com'})
+            self.assertNotEqual(person_objects[i], person_objects_copy[i])
         
 from os import path
 from windmill.authoring import djangotest

@@ -2,8 +2,8 @@ from django.conf.urls.defaults import patterns, include, url
 from apps.personal_info.views import main_page
 from apps.tools.views import requests
 import os
+from django.contrib.auth import views as auth_views
 project_dir = os.getcwd()
-
 from django.contrib import admin
 admin.autodiscover()
 
@@ -16,6 +16,14 @@ urlpatterns = patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', 
         {'document_root' : '%s/media/static/' % project_dir}),
     
+    url(r'^login/$',auth_views.login,
+                        {'template_name': 'registration/login.html'},
+                        name='auth_login'),
+    url(r'^logout/$',auth_views.logout,
+                        {'template_name': 'registration/logout.html'}),
+    
     url(r'^$', main_page, name='main'),
     url(r'^requests/$', requests, name='requests'),
+    
+
 )

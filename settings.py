@@ -26,6 +26,8 @@ FIXTURE_DIRS = (
    os.path.join(project_dir, 'apps', 'tools', 'fixtures'),
 )
 
+LOGIN_REDIRECT_URL='/form/'
+
 TEMPLATE_CONTEXT_PROCESSORS = (
 'django.core.context_processors.request',
 "django.contrib.auth.context_processors.auth",
@@ -141,8 +143,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'apps.personal_info',
     'apps.tools',
-    
-
 )
 
 # A sample logging configuration. The only tangible logging

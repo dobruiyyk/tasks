@@ -7,7 +7,13 @@
 {% block content %}
 	
 	<div id='content' style='min-width:600px; '>
-		<h2>42 Coffee Cups Test Assignment</h2>
+		<div id='left'>
+			<h2>42 Coffee Cups Test Assignment</h2>
+		</div>
+		<div id='right'  style='text-align:right'>
+			<a href="/login/">login</a>
+		</div>
+		<div id='clear'></div></div>
 		<div id='left'>
 			<p>{{ object.name }}</p>
 			<p>{{ object.last_name }}</p>
@@ -47,8 +53,7 @@
 			</div>
 		</div>
 		
-		<div id='clear'></div>
-		</div>
+		<div id='clear'></div></div>
 
 		<div id='foot'>
 			<p class='bord'></p>
