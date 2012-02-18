@@ -4,24 +4,20 @@ from django.contrib.auth.models import User
 from apps.personal_info.models import Person
 
 class FilesTestCase(TestCase):
-    def testFiles(self):
+    '''ticket1 : required files
+    '''
+    def test_files(self):
         '''Files existance check -*-.gitignore, Makefile, requrements.txt -*-
         '''
-        current_dir = os.getcwd()
-        current_dir_list = current_dir.split('/')
-        task_num = current_dir_list.index('tasks') + 1
-        project_dir_list = current_dir_list[:task_num]
-        project_dir = '/'.join(project_dir_list)
-        is_file=os.path.isfile
-        self.assertEqual(True, is_file(project_dir + '/.gitignore'))
-        self.assertEqual(True, is_file(project_dir + '/Makefile'))
-        self.assertEqual(True, is_file(project_dir + '/requirements.txt'))
+        is_file = os.path.isfile
+        self.assertEqual(True, is_file('.gitignore'))
+        self.assertEqual(True, is_file('Makefile'))
+        self.assertEqual(True, is_file('requirements.txt'))
         
-
-    def testFixture(self):
+    def test_fixture(self):
         '''Fixture check -*- default admin@admin user presence + info-*-
         '''
-        admin=User.objects.get(username='admin')
+        admin = User.objects.get(username='admin')
         self.assertEqual('admin', admin.username)
         self.assertEqual(u'sha1$7e4c2$b0921efc8462153d88a755436e3f371d67dadf1d',
                          admin.password)
@@ -36,7 +32,7 @@ for nm in os.listdir(wmtests):
     if nm.startswith("test") and nm.endswith(".py"):
         testnm = nm[:-3]
         class WindmillTest(djangotest.WindmillDjangoUnitTest):
-            test_dir = path.join(wmtests,nm)
+            test_dir = path.join(wmtests, nm)
             browser = "firefox"
         WindmillTest.__name__ = testnm
         globals()[testnm] = WindmillTest

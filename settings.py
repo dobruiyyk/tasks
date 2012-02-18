@@ -26,8 +26,6 @@ FIXTURE_DIRS = (
    os.path.join(project_dir, 'apps', 'tools', 'fixtures'),
 )
 
-GEOIP_PATH= os.path.join(project_dir, 'media', 'geoip_dat')
-
 TEMPLATE_CONTEXT_PROCESSORS = (
 'django.core.context_processors.request',
 "django.contrib.auth.context_processors.auth",
