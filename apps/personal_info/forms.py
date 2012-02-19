@@ -4,6 +4,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, ButtonHolder, Layout, Div, Fieldset, HTML
 
 class PersonChange(ModelForm):
+    ''' form that allows to edit data, presented on the main page
+    '''
     def __init__(self, *args, **kw):
         super(ModelForm, self).__init__(*args, **kw)
         self.helper = FormHelper()
