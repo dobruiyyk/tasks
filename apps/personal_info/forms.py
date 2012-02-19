@@ -39,6 +39,7 @@ class PersonChange(ModelForm):
     
     def save(self, commit=True, force_insert=False, force_update=False):
         instance = super(PersonChange, self).save(commit=False)
+        
         person = Person.objects.get(pk=1)
         
         for key in instance.__dict__:

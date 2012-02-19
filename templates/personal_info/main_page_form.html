@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
@@ -14,8 +15,4 @@
 {% block content %}
 	{% load crispy_forms_tags %} 
 	{% crispy form form.helper %}
-
-	{% if errors %}
-		{{ errors }}
-	{% endif %}
 {% endblock %}

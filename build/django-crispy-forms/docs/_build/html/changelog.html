@@ -1,0 +1,237 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Change Log &mdash; django-crispy-forms 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/flasky.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="django-crispy-forms 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="API helpers" href="api_helpers.html" />
+    <link rel="prev" title="Contributors" href="contributors.html" />
+   
+  
+  <link media="only screen and (max-device-width: 480px)" href="_static/small_flask.css" type= "text/css" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api_helpers.html" title="API helpers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contributors.html" title="Contributors"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">django-crispy-forms 1.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="change-log">
+<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>0.9.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>You can read on changes introduced to version 0.9.0 on this <a href="#id6"><span class="problematic" id="id7">`blog post`_</span></a>
+.. <span class="target" id="blog-post">blog post</span>: <a class="reference external" href="http://tothinkornottothink.com/post/10398684502/django-uni-form-0-9-0-is-out-security-fix">http://tothinkornottothink.com/post/10398684502/django-uni-form-0-9-0-is-out-security-fix</a></p>
+</div>
+<div class="section" id="id2">
+<h2>0.8.0<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>You can read on changes introduced to version 0.8.0 on this <a href="#id8"><span class="problematic" id="id9">`blog post`_</span></a>
+.. <span class="target" id="id3">blog post</span>: <a class="reference external" href="http://tothinkornottothink.com/post/10398684502/django-uni-form-0-9-0-is-out-security-fix">http://tothinkornottothink.com/post/10398684502/django-uni-form-0-9-0-is-out-security-fix</a></p>
+<div class="section" id="built-in-csrf-support">
+<h3>Built-in csrf support<a class="headerlink" href="#built-in-csrf-support" title="Permalink to this headline">¶</a></h3>
+<p>Fully generated forms from the <cite>uni_form</cite> tag now have Django 1.2+&#8217;s support for csrf built-in.</p>
+</div>
+<div class="section" id="field-labels-now-with-safe-filter">
+<h3>Field labels now with safe filter<a class="headerlink" href="#field-labels-now-with-safe-filter" title="Permalink to this headline">¶</a></h3>
+<p>This release renders django.form.field labels with the &#8216;<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/templates/builtins/#safe">safe</a>&#8216; filter. If you have user generated form field labels you should take this into consideration.</p>
+<p>On the rare occasions this a problem, just create a <strong>uni_form</strong> directory in your templates directory, copy <cite>uni_form/templates/uni_form/field.html</cite> there, and remove the &#8216;<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/templates/builtins/#safe">safe</a>&#8216; filter.</p>
+</div>
+<div class="section" id="errormsg-div-now-outside-the-fieldset">
+<h3>errorMsg div now outside the fieldset<a class="headerlink" href="#errormsg-div-now-outside-the-fieldset" title="Permalink to this headline">¶</a></h3>
+<p>This release lays out the HTML for the uni_form tag differently than previous versions. The errorMsg div is now outside the fieldset as it should be.</p>
+</div>
+<div class="section" id="uni-form-tags-has-been-split-into-two-files">
+<h3>uni_form_tags has been split into two files<a class="headerlink" href="#uni-form-tags-has-been-split-into-two-files" title="Permalink to this headline">¶</a></h3>
+<p>Because <cite>uni_form_tags</cite> got so big it was broken up into two files, <cite>uni_form_tags</cite> and <cite>uni_form_filters</cite>. In order to support backwards compatibility, <cite>uni_form_tags</cite>
+imports all the functions of <cite>uni_form_filters</cite>, so existing projects won&#8217;t be affected.</p>
+</div>
+<div class="section" id="removed-uni-form-jquery-tag">
+<h3>Removed {% uni_form_jquery %} tag<a class="headerlink" href="#removed-uni-form-jquery-tag" title="Permalink to this headline">¶</a></h3>
+<p>This was always somewhat problematic to get working. Static media should not be obfuscated via code and while this tag seemed helpful in practice it caused more headaches then what it was worth.</p>
+</div>
+<div class="section" id="elevated-miguel-araujo-to-project-lead">
+<h3>Elevated Miguel Araujo to project lead<a class="headerlink" href="#elevated-miguel-araujo-to-project-lead" title="Permalink to this headline">¶</a></h3>
+<p>This project has needed a much more active project lead for some time. Miguel Araujo shares my passion for good form generation and has a very deep understanding of python, django, and HTML. Also, his decisions on everything about this project either matches my own thoughts or he&#8217;s been able to easily convince me why his concepts are sound.</p>
+</div>
+<div class="section" id="miscellaneous">
+<h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Elevated Miguel Araujo to project lead!</li>
+<li>Based on &#64;issackelly&#8217;s and &#64;johnthedebs&#8217;s work a template called <cite>betterform</cite> has been added for supporting &#64;carljm&#8217;s form-utils BetterForms.</li>
+<li>FormHelper&#8217;s method get_attr has been renamed to get_attributes</li>
+<li>uni_form_tags has been split into two different files: <cite>uni_form_tags</cite> and <cite>uni_form_filters</cite>.</li>
+<li>Removing i18n tags from the templates, as they are not necessary anymore.</li>
+<li>Removed all the internationalized hardcoded text, in favor of template variables: <cite>form_error_title</cite> and <cite>formset_error_title</cite>, bot can be set as helper&#8217;s attributes.</li>
+<li>as_uni_errors filter can now render formset&#8217;s non_form_errors uni-form way.</li>
+<li>Moved setup filter to use STATIC_URL instead of MEDIA_URL</li>
+<li>Added the possibility to specify a helper for formsets too.</li>
+<li>Renamed media directory to static, to be compatible with Django 1.3 staticfiles.</li>
+<li>Added a form_style Helper attribute for setting global style of a form: inline or default.</li>
+<li>Turning HTML into a context aware field, having form as a context variable and working as a Django template.</li>
+<li>Turning Layout and Fieldset fields into lists, so that they can be changed dynamically.</li>
+<li>Changing formHints from paragraphs to divs, so ul or ol can be placed within.</li>
+<li>Removing slugify filter from form ids, so they can be set as user&#8217;s preferences.</li>
+<li>Added CSS class &#8216;asteriskField&#8217; for asterisks. Added CSS class &#8216;fieldRequired&#8217; for required input labels.</li>
+<li>FAIL_SILENTLY setting has been added for making django-uni-form log errors and fail silently, based on Adam Cupiał&#8217;s work.</li>
+<li>Several bug fixes in MultiField.</li>
+<li>Added unicode support for layout field names and improved error handling.</li>
+<li>Refactored testing system and raised testing coverage.</li>
+<li>Clean part of the code base and comments. All old CSRF code for supporting old versions of Django has been removed.</li>
+<li>Refactored BasicNode for better readability and reducing lines of code.</li>
+<li>Added formsets support based on Victor Nagy&#8217;s (nagyv) and Antti Kaihola&#8217;s (akahiola) work.</li>
+<li>Bug fix in {% uni_form %} tag that didn&#8217;t work without a helper and it was meant to be optional.</li>
+<li>CSS classes can be set in Submit buttons.</li>
+<li>Thanks to J. Javier Maestro (jjmaestro) now we can set ids and classes for Fieldset, MultiField, Row and Column.</li>
+<li>Thanks to Richard Marko (sorki) changed CSS class of PasswordInput widget.</li>
+<li>Removing Toggle class as it wasn&#8217;t being used anywhere.</li>
+<li>Moved BaseInput to helpers and removed util.py file.</li>
+<li>Removed {% uni_form_jquery %} tag</li>
+<li>Removed <cite>namify</cite> function from tags, as It wasn&#8217;t being used anywhere.</li>
+<li>Improved internal documentation</li>
+<li>form methods generated by FormHelper are in lowercase (<a class="reference external" href="http://github.com/pydanny/django-uni-form/issues#issue/20">http://github.com/pydanny/django-uni-form/issues#issue/20</a>)</li>
+<li>Thanks to Nagy Viktor added form_tag attribute to FormHelper. Now you can use the uni_form tag without the leading and trailing form tags.</li>
+<li>Thanks for Alison Rowland for giving django-uni-form sphinx docs</li>
+<li>Incorporated uni-form 1.4 by Dragan Babic</li>
+<li>Provide better adherence to uni-form specification of error messages</li>
+<li>mirumee provided some great work for making FormHelper more subclassable.</li>
+<li>django-uni-form 0.8 and higher lays out the HTML for the uni_form tag differently. The errorMsg div is now outside the fieldset as it should be.</li>
+<li>Thanks to Casper S. Jensen django-uni-form now supports 1.2 style csrf_token.</li>
+<li>csrf_token does not break earlier versions of Django. This will change when no version of django does not support csrf_token.</li>
+<li>Thanks to j0hnsmith changed {{ error }} to {{ error|safe }} so that html (eg links) can be added to error messages.</li>
+<li>Thanks to j0hnsmith changed {{ field.label }} to {{ field.label|safe }} so that html (eg  links) can be added to field labels</li>
+<li>Kudos to Stepan Rakhimov fixed an admin datetime issue.</li>
+<li>Thanks to patrys (Patryk Zawadzki) FormHelper class is now easily subclass-able.</li>
+<li>Sorki (Richard Marko) made it so things work better in direct_to_template.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>0.7.0<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="calling-the-template-tags-library">
+<h3>Calling the template tags library<a class="headerlink" href="#calling-the-template-tags-library" title="Permalink to this headline">¶</a></h3>
+<p>Release 0.7 and higher breaks backwards compatibility with previous versions of django-uni-form . All you have to do is update templates that call on the django-uni-form template tag from:</p>
+<div class="highlight-python"><pre>{% load uni_form %}</pre>
+</div>
+<p>To:</p>
+<div class="highlight-python"><pre>{% load uni_form_tags %}</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Miscellaneous<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Removed a &lt;hr /&gt; from the layout module.</li>
+<li>Changed templatetags/uni_form.py to templatetags/uni_form_tags.py. Yes, this breaks backwards compatibility but fixes a namespace problems in Django with naming a templatetag library after the parent application.</li>
+<li>Changed form_action attribute to accept not just named URLs but also any old URL.</li>
+<li>Added in uni_form_setup tag.</li>
+<li>Added tests</li>
+<li>Added several new contributors including Dragan Babic</li>
+<li>Added Danish language translation</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Change Log</a><ul>
+<li><a class="reference internal" href="#id1">0.9.0</a></li>
+<li><a class="reference internal" href="#id2">0.8.0</a><ul>
+<li><a class="reference internal" href="#built-in-csrf-support">Built-in csrf support</a></li>
+<li><a class="reference internal" href="#field-labels-now-with-safe-filter">Field labels now with safe filter</a></li>
+<li><a class="reference internal" href="#errormsg-div-now-outside-the-fieldset">errorMsg div now outside the fieldset</a></li>
+<li><a class="reference internal" href="#uni-form-tags-has-been-split-into-two-files">uni_form_tags has been split into two files</a></li>
+<li><a class="reference internal" href="#removed-uni-form-jquery-tag">Removed {% uni_form_jquery %} tag</a></li>
+<li><a class="reference internal" href="#elevated-miguel-araujo-to-project-lead">Elevated Miguel Araujo to project lead</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id4">0.7.0</a><ul>
+<li><a class="reference internal" href="#calling-the-template-tags-library">Calling the template tags library</a></li>
+<li><a class="reference internal" href="#id5">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="contributors.html" title="previous chapter">Contributors</a></li>
+      <li>Next: <a href="api_helpers.html" title="next chapter">API helpers</a></li>
+  </ul></li>
+</ul>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/changelog.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009-2011, Miguel Araujo and Daniel Greenfeld.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+    </div>
+  </body>
+</html>

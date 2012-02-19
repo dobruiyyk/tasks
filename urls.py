@@ -19,6 +19,12 @@ urlpatterns = patterns('',
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', 
         {'document_root' : '%s/media/static/' % project_dir}),
     
+    url(r'^form/photo/(?P<path>.*)$', 'django.views.static.serve', 
+        {'document_root' : '%s/media/photo/' % project_dir}),
+    
+     url(r'^photo/(?P<path>.*)$', 'django.views.static.serve', 
+        {'document_root' : '%s/media/photo/' % project_dir}),
+    
     url(r'^login/$',auth_views.login,
                         {'template_name': 'registration/login.html'},
                         name='auth_login'),
