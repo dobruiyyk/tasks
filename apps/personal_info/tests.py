@@ -77,7 +77,7 @@ class FormTestCase(WebTest):
             form = self.app.get('/form/').form
             form[field] = '1@1.com'
             response = form.submit().follow() # all form fields are submitted
-            self.assertEqual(response.context['object'].__dict__[field], '1@1.com')
+            self.assertEqual(response.context['object'][field], '1@1.com')
 
 from os import path
 from windmill.authoring import djangotest

@@ -59,8 +59,8 @@ class PersonChange(ModelForm):
             if not bool(instance.other_contacts.split()):
                 instance.other_contacts = ''
         
-#        if commit:
-#            instance.save()
+        if commit:
+            instance.save()
         return instance
         
     class Meta:

@@ -17,12 +17,14 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login/')
 def main_page_form(request,val=None):
+    ''' form that allows to edit data, presented on the main page
+    '''
     person = Person.objects.get(pk=1)
     if request.method == 'POST':
         form = PersonChange(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('form')
+            return redirect('main')
     else:
         form = PersonChange()
     
