@@ -5,24 +5,21 @@
 {% endblock %}
 
 {% block content %}
-	
-	<div id='content' style='min-width:600px; '>
-		<h2>42 Coffee Cups Test Assignment</h2>
+		<div id='left'>
+			<h2>42 Coffee Cups Test Assignment</h2>
+		</div>
+		<div id='right'  style='text-align:right'>
+			<a href="/login/">login</a>
+		</div>
+		<div id='clear'></div>
+		
 		<div id='left'>
 			<p>{{ object.name }}</p>
 			<p>{{ object.last_name }}</p>
 			<p>{{ object.birth }}</p>
-			<div style='height:16px'></div>
-			<div style='border:1px solid grey'>
-				<p>Bio :<hr></p> 
-				{% if object.bio %}
-					{{ object.bio|safe }}
-				{% else %}
-					<p>No bio</p>
-				{% endif %}
-			</div>			
+			<p>Photo:</p>
+			<img style='width:100%' src='{{ object.photo }}' />			
 		</div>
-		
 		<div id='right'>
 			<p>{{ object.contacts }}</p>
 			<p>Email: {{ object.email }}</p>
@@ -36,19 +33,16 @@
 					<p>No contacts</p>
 				{% endif %}
 			</div>	
-			<div>	
-				<a href="http://getbarista.com/project/286/">Project on GetBarista</a>
-				<br>
-				<a href="http://tasks.dobruiyyk.at.getbarista.com">Staging's address</a>
-				<br>	
-				<a href="http://reviework.com/dobr/tasks/">Project on ReviewWork</a>
-				<br>
-				<a href="https://github.com/dobruiyyk/tasks">Repo on Github</a>
+			<div style='border:1px solid grey'>
+				<p>Bio :<hr></p> 
+				{% if object.bio %}
+					{{ object.bio|safe }}
+				{% else %}
+					<p>No bio</p>
+				{% endif %}
 			</div>
 		</div>
-		
-		<div id='clear'></div>
-		</div>
+		<div id='clear'></div></div>
 
 		<div id='foot'>
 			<p class='bord'></p>

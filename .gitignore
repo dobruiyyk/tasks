@@ -6,3 +6,5 @@
 .pydevproject
 .env/*
 apache/*
+media/photo/*
+build*
