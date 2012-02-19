@@ -1,11 +1,14 @@
 from django.conf.urls.defaults import patterns, include, url
 from apps.personal_info.views import main_page
 from apps.tools.views import requests
-import os
 from django.contrib.auth import views as auth_views
-project_dir = os.getcwd()
+from apps.personal_info.views import main_page_form
+import os
+
 from django.contrib import admin
 admin.autodiscover()
+
+project_dir = os.getcwd()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
@@ -24,6 +27,5 @@ urlpatterns = patterns('',
     
     url(r'^$', main_page, name='main'),
     url(r'^requests/$', requests, name='requests'),
-    
-
+    url(r'^form/$', main_page_form, name='form'),
 )

@@ -27,7 +27,8 @@ FIXTURE_DIRS = (
 )
 
 LOGIN_REDIRECT_URL='/form/'
-
+CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPYFORMS_FAIL_SILENTLY = False
 TEMPLATE_CONTEXT_PROCESSORS = (
 'django.core.context_processors.request',
 "django.contrib.auth.context_processors.auth",
@@ -143,6 +144,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'apps.personal_info',
     'apps.tools',
+    'crispy_forms',
 )
 
 # A sample logging configuration. The only tangible logging

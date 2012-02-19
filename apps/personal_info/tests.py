@@ -1,10 +1,12 @@
+from django.test.utils import setup_test_environment
+setup_test_environment()
+
 from django.test import TestCase
 import os
 from django.contrib.auth.models import User
 from apps.personal_info.models import Person
-from django.test.utils import setup_test_environment
-setup_test_environment()
 from django.test.client import Client
+from django_webtest import WebTest
 
 class FilesTestCase(TestCase):
     '''ticket1 : required files
@@ -27,7 +29,7 @@ class FilesTestCase(TestCase):
         info = Person.objects.get(pk=1)
         self.assertEqual('Dmitry', info.name)
 
-class AuthFormTestCase(TestCase):
+class AuthTestCase(TestCase):
     '''Different situations where user authentification is involved
     '''
     def setUp(self):
@@ -51,29 +53,32 @@ class AuthFormTestCase(TestCase):
         '''
         response = self.c.get('/form/', follow=True)
         self.assertEqual(response.redirect_chain,
-                         [(u'http://testserver/login/', 302)],)
-        self.assertEqual(response.context['user'].username, u'Anonymous')
+                         [('http://testserver/login/?next=/form/', 302)],)
+        self.assertEqual(response.context['user'].username, '')
         
         self.c.login(username='admin', password='admin')
-        response = self.c.get('/form/', follow=True)
-        self.assertEqual(response.context['name'], 'admin')
+        response = self.c.get('/form/')
+        self.assertEqual(response.context['user'].username, u'admin')
         response = self.c.get('/form/')
         self.assertEqual(response.status_code, 200)
+    
+class FormTestCase(WebTest):
+    '''functionality of the /form/ form
+    '''
+    def test_my_view(self):
+        c = Client()
+        c.login(username='admin', password='admin')
+        res = self.app.get('/form/', user='admin')
+        self.assertEqual(res.status, '200 OK')
+        form = self.app.get('/form/').forms
         
-    def test_form_func(self):
-        '''functionality of the /form/ form
-        '''
-        self.c.post('/login/', {'username': 'admin', 'password': 'admin'})
-        person_objects = Person.objects.get(pk=1).__dict__
-        from copy import deepcopy
-        person_objects_copy = deepcopy(person_objects)
-        self.assertEqual(sorted(person_objects), sorted(person_objects_copy))
-        for i in ('bio', 'last_name', 'name', 'contacts',
-                  'other_contacts', 'skype', 'email', 'jabber'):
-            self.assertEqual(person_objects[i], person_objects_copy[i])
-            self.c.post('/form/', {'%s'%i: '1@1.com'})
-            self.assertNotEqual(person_objects[i], person_objects_copy[i])
-        
+        for field in ('bio', 'last_name', 'name', 'contacts', 
+                      'email', 'other_contacts', 'skype', 'jabber'):
+            form = self.app.get('/form/').form
+            form[field] = '1@1.com'
+            response = form.submit().follow() # all form fields are submitted
+            self.assertEqual(response.context['object'].__dict__[field], '1@1.com')
+
 from os import path
 from windmill.authoring import djangotest
  
