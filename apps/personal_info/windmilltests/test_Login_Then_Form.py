@@ -32,7 +32,7 @@ def test_LoginRedirectForm():
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/h2",
                                 validator=u'42 Coffee Cups Test Assignment')
 
-    client.asserts.assertNode(link=u'login')
+    client.asserts.assertNode(link=u'Change info')
 
     client.asserts.assertTextIn(xpath=u"//div[@id='left']/p[1]",
                                 validator=u'')

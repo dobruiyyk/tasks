@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}42 Coffee Cups Test Assignment{% endblock %}
+
 {% block content %}
 	<p align='right'><a  href="{% url auth_logout %}">Logout</a></p>
 	{% load crispy_forms_tags %} 
@@ -14,22 +16,25 @@
 {% endblock %}
 
 {% block extra_head %}
+
 <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
 <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
 <link rel="stylesheet" type="text/css" href="/static/42.css" />
+
 
 <script src="{{ STATIC_URL }}js/jquery.js" type="text/javascript"></script>
 <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/uni-form.css" type="text/css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}uni_form/blue.uni-form.css" type="text/css" />
 <!-- note that there's also blue.uni-form.css and dark.uni-form.css available if you want to try changing defaults up -->
 <script src="{{ STATIC_URL }}uni_form/uni-form.jquery.js" type="text/javascript"></script>
+
 <script type="text/javascript" src="/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
 tinyMCE.init({
 		mode : "textareas",
 		theme : "simple",
 		skin : "o2k7",
-		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,inlinepopups,autosave",
+//		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,inlinepopups,autosave",
 
 		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
 		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",

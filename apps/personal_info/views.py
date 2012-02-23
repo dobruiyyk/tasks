@@ -22,12 +22,12 @@ def main_page_form(request, val=None):
     '''
     person = Person.objects.get(pk=1)
     if request.method == 'POST':
-        form = PersonChange(request.POST, request.FILES)
+        form = PersonChange(request.POST, request.FILES, instance=person)
         if form.is_valid():
             form.save()
             return redirect('main')
     else:
-        form = PersonChange(person.__dict__)
+        form = PersonChange(instance=person)
 
     return render_to_response('personal_info/main_page_form.html',
                               {'form': form,

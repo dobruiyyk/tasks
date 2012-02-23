@@ -29,3 +29,10 @@ a:link, a:visited {
 	text-decoration: underline;
 	color: blue;
 	}
+#submit-save {
+	float:left;
+	margin-right : 5px;
+	}
+.asteriskField {
+    display: none;
+}
