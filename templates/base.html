@@ -2,21 +2,21 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 <head>
-	<title>
-		{% block title %}
-		{% endblock %}
-	</title>
-	
+	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
-	
+	<link rel="stylesheet" type="text/css" href="/static/42.css" />
 	{% block extra_head %}
 	{% endblock %}
 </head>
 
 <body>
 	<div id='content' style='min-width:600px; '>
-	{% block content %}
-	{% endblock %}
-	<div>
+		{% block content %}	
+		{% endblock %}
+	</div>
+	<div id='foot'>
+		{% block footer %}
+		{% endblock %}
+	</div>
 </body>
 </html>
