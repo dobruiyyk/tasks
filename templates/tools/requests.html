@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id='content' style='min-width:600px; '>
 	{% for i in last_requests %}
 		<p style='word-spacing:4px; '>
 		{% for str in i %}
@@ -9,6 +8,10 @@
 		{% endfor %}
 		</p>
 	{% endfor %}
+{% endblock %}
+
+{% block footer %}
+	<p class='bord'></p>
+	<br>
 	<a href="{% url main %}">main page</a>
-<div>
 {% endblock %}

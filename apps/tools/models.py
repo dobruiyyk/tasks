@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 
+
 class HttpRequest(models.Model):
     '''model for storeing all http requests in the DB
     '''

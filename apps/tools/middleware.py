@@ -1,6 +1,7 @@
 from apps.tools.models import HttpRequest
 import datetime
 
+
 class save_httprequest_to_db():
     '''middleware that stores all http requests in the DB
     '''
@@ -16,4 +17,4 @@ class save_httprequest_to_db():
                             request_path=request_path,
                             request_method=request_method)
         obj.save()
-        return None  
+        return None
