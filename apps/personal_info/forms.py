@@ -4,13 +4,31 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, ButtonHolder, Layout
 from crispy_forms.layout import Div, Fieldset, HTML
 from django.utils.html import strip_tags, strip_entities
+from django import forms
+from django.conf import settings
+
+
+class StolenDateWidget(forms.DateInput):
+    class Media:
+        js = (settings.ADMIN_MEDIA_PREFIX + "js/calendar.js",
+              "/static/js/DateTimeShortcuts.js")
+
+        def __init__(self, attrs={}, format=None):
+            super(StolenDateWidget, self).__init__(
+                                            attrs={'class': 'vDateField',
+                                                   'size': '30'},
+                                                   format=format)
 
 
 class PersonChange(ModelForm):
     ''' form that allows to edit data, presented on the main page
     '''
+    birth = forms.DateField(required=False,
+                            widget=StolenDateWidget()
+                            )
+
     def __init__(self, *args, **kw):
-        super(ModelForm, self).__init__(*args, **kw)
+        super(PersonChange, self).__init__(*args, **kw)
         self.helper = FormHelper()
         self.helper.form_id = 'id-PersonChange'
         self.helper.form_class = 'blueForms'
