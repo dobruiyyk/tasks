@@ -17,11 +17,15 @@
 			<p>{{ object.name }}</p>
 			<p>{{ object.last_name }}</p>
 			<p>{{ object.birth }}</p>
-			<p>Photo:</p>
-			<img style='width:100%' src='{{ object.photo }}' />			
+			{% if object.photo %}
+				<p>Photo:</p>
+				<img style='width:100%' src='{{ object.photo }}' />
+			{% endif %}			
 		</div>
 		<div id='right'>
-			<p>{{ object.contacts }}</p>
+			{% if object.contacts %}
+				<p>{{ object.contacts }}</p>
+			{% endif %}
 			<p>Email: {{ object.email }}</p>
 			<p>Jabber: {{ object.jabber }}</p>
 			<p>Skype: {{ object.skype }}</p>

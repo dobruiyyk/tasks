@@ -4,6 +4,7 @@ from apps.tools.views import requests
 from django.contrib.auth import views as auth_views
 from apps.personal_info.views import main_page_form
 import os
+from apps.personal_info.forms import PersonChange
 
 from django.contrib import admin
 admin.autodiscover()
@@ -12,6 +13,9 @@ project_dir = os.getcwd()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+
+    (r'^admin/jsi18n', 'django.views.i18n.javascript_catalog'),
+
     url(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root':
                   '%s/media/js/tiny_mce/' % project_dir}),
@@ -34,5 +38,6 @@ urlpatterns = patterns('',
 
     url(r'^$', main_page, name='main'),
     url(r'^requests/$', requests, name='requests'),
-    url(r'^form/$', main_page_form, name='form'),
+    url(r'^form/$', main_page_form,
+                    name='form'),
 )

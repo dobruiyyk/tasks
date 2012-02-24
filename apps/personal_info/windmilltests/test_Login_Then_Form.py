@@ -17,7 +17,7 @@ def test_MainPageElements():
     client.waits.forElement(timeout=u'8000', id=u'id_name')
     client.click(id=u'id_name')
     client.type(text=u'dk', id=u'id_name')
-    client.click(id=u'submit-save')
+    client.click(id=u'submit-id-save_changes')
     client.waits.forPageLoad(timeout=u'20000')
     client.waits.forElement(xpath=u"//div[@id='left']/p[1]", timeout=u'8000')
     client.asserts.assertTextIn(xpath=u"//div[@id='left']/p[1]",
@@ -32,7 +32,7 @@ def test_LoginRedirectForm():
     client.asserts.assertTextIn(xpath=u"//div[@id='content']/h2",
                                 validator=u'42 Coffee Cups Test Assignment')
 
-    client.asserts.assertNode(link=u'login')
+    client.asserts.assertNode(link=u'Change info')
 
     client.asserts.assertTextIn(xpath=u"//div[@id='left']/p[1]",
                                 validator=u'')
@@ -42,13 +42,13 @@ def test_LoginRedirectForm():
                                 validator=u'')
     client.asserts.assertTextIn(xpath=u"//div[@id='left']/div[2]/p[1]",
                                 validator=u'Bio')
+#    client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[1]",
+#                                validator=u'')
     client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[1]",
-                                validator=u'')
-    client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[2]",
                                 validator=u'Email:')
-    client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[3]",
+    client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[2]",
                                 validator=u'Jabber:')
-    client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[4]",
+    client.asserts.assertTextIn(xpath=u"//div[@id='right']/p[3]",
                                 validator=u'Skype:')
     client.asserts.assertTextIn(xpath=u"//div[@id='right']/div/p[1]",
                                 validator=u'Other contacts:')
