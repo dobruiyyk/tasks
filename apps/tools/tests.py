@@ -5,6 +5,7 @@ setup_test_environment()
 from django.test.client import Client
 from apps.personal_info.models import Person
 from django.template import Template, Context, TemplateSyntaxError
+from django.core.management import call_command
 
 
 class RequestMWTestCase(TestCase):
@@ -58,6 +59,13 @@ class TemplateTagsTestCase(TestCase):
 
         self.assertRaises(TemplateSyntaxError, render,
                           "{% load edit_link %}{% edit_link bla-bla %}")
+
+class PrintModelsCommandTestCase(TestCase):
+    '''Create django command that prints all project models and the count of 
+    objects in every model
+    '''
+    def test_run_command(self):
+        self.assertEqual(None, call_command('print_models'))
         
 from os import path
 from windmill.authoring import djangotest

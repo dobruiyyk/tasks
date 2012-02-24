@@ -12,13 +12,15 @@ class Command(NoArgsCommand):
             apps.append(app.split('.')[-1])
 
         for app in apps:
-            self.stdout.write('\nApplication : %s\n' % app)
             models = get_models(get_app(app))
 
             if models:
+#                self.stdout.write('\nApplication : %s\n' % app)
                 for model in models:
                     model.count = model.objects.all().count()
-                    self.stdout.write(' \--Model : %s, count : % s\n'
-                                          % (model.__name__, model.count))
-            else:
-                self.stdout.write(' /--No Models\n')
+                    model = 'Model : %s, count : % s\n' % (model.__name__,
+                                                               model.count)
+                    self.stdout.write(model)
+                    self.stderr.write('error: %s\n' % model)
+#            else:
+#                self.stdout.write(' /--No Models\n')
