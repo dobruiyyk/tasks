@@ -48,6 +48,9 @@ class PersonChange(ModelForm):
         </div>"""))
         field_set2 = list(field_set)[4:]
 
+        field_set1.reverse()
+        field_set2.reverse()
+
         st = Fieldset('''
                         <h3>42 Coffee Cups Test Assignment</h3>''',
                 Div(*field_set1,
