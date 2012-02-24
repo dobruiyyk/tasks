@@ -26,7 +26,7 @@ FIXTURE_DIRS = (
    os.path.join(project_dir, 'apps', 'tools', 'fixtures'),
 )
 
-LOGIN_REDIRECT_URL = '/form/'
+LOGIN_REDIRECT_URL = '/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 

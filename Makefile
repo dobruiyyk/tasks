@@ -1,7 +1,7 @@
 MANAGE=django-admin.py
 
 test:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.AuthTestCase personal_info.FilesTestCase personal_info.FormTestCase tools.RequestMWTestCase
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.AuthTestCase personal_info.FilesTestCase personal_info.FormTestCase tools.RequestMWTestCase tools.TemplateTagsTestCase
 
 run:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) runserver
