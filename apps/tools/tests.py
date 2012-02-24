@@ -3,6 +3,8 @@ from apps.tools.models import HttpRequest
 from django.test.utils import setup_test_environment
 setup_test_environment()
 from django.test.client import Client
+from apps.personal_info.models import Person
+from django.template import Template, Context, TemplateSyntaxError
 
 
 class RequestMWTestCase(TestCase):
@@ -33,6 +35,28 @@ class RequestMWTestCase(TestCase):
         '''
         from django.conf import settings
         self.assertEqual(True, bool(settings.TEMPLATE_CONTEXT_PROCESSORS))
+
+
+class TemplateTagsTestCase(TestCase):
+    '''tag accepts any object and renders the link to its admin edit page
+    ('{% edit_link request.user %}')
+    '''
+    def test_get_tag_for_pk1_user(self):
+        "tag for Person.objects.get(pk=1)"
+        out = Template(
+                "{% load edit_link %}"
+                "{% edit_link person %}"
+            ).render(Context({
+                'person': Person.objects.get(pk=1)
+            }))
+        self.assertEqual(out, "<a href='/admin/personal_info/person/1/'</a>")
+
+    def test_parsing_errors(self):
+        "template tag won't parse anything but onject"
+        render = lambda t: Template(t).render(Context())
+
+        self.assertRaises(TemplateSyntaxError, render,
+                          "{% load edit_link %}{% edit_link bla-bla %}")
 
 from os import path
 from windmill.authoring import djangotest
