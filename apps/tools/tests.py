@@ -57,7 +57,7 @@ class TemplateTagsTestCase(TestCase):
 
         self.assertRaises(TemplateSyntaxError, render,
                           "{% load edit_link %}{% edit_link bla-bla %}")
-
+        
 from os import path
 from windmill.authoring import djangotest
 import os
