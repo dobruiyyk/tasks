@@ -1,22 +1,23 @@
 from django.forms.models import ModelForm
 from apps.personal_info.models import Person
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, ButtonHolder, Layout
-from crispy_forms.layout import Div, Fieldset, HTML
-from django.utils.html import strip_tags, strip_entities
+from crispy_forms.layout import Submit, Layout
+from crispy_forms.layout import Div, Fieldset, HTML, Reset
 from django import forms
 from django.conf import settings
+from crispy_forms.bootstrap import FormActions
 
 
 class StolenDateWidget(forms.DateInput):
     class Media:
         js = (settings.ADMIN_MEDIA_PREFIX + "js/calendar.js",
-              "/static/js/DateTimeShortcuts.js")
+              "/static/js/DateTimeShortcuts.js"
+              )
 
         def __init__(self, attrs={}, format=None):
             super(StolenDateWidget, self).__init__(
                                             attrs={'class': 'vDateField',
-                                                   'size': '30'},
+                                                   'size': '10'},
                                                    format=format)
 
 
@@ -24,17 +25,20 @@ class PersonChange(ModelForm):
     ''' form that allows to edit data, presented on the main page
     '''
     birth = forms.DateField(required=False,
-                            widget=StolenDateWidget()
+                            widget=StolenDateWidget
                             )
 
     def __init__(self, *args, **kw):
         super(PersonChange, self).__init__(*args, **kw)
         self.helper = FormHelper()
         self.helper.form_id = 'id-PersonChange'
-        self.helper.form_class = 'blueForms'
+        self.helper.form_class = 'PersonChangeForm'
         self.helper.form_method = 'post'
         self.helper.form_action = '/form/'
         self.helper.form_style = 'inline'
+
+        self.fields.pop('contacts')
+        self.fields.pop('photo')
 
         field_set = self.fields
         field_set1 = list(field_set)[:4]
@@ -45,9 +49,7 @@ class PersonChange(ModelForm):
         field_set2 = list(field_set)[4:]
 
         st = Fieldset('''
-                        {% if form.errors %}
-                        <h1>Please correct the following errors</h1>
-                        {% else %}<h1>Submit</h1>{% endif %}''',
+                        <h3>42 Coffee Cups Test Assignment</h3>''',
                 Div(*field_set1,
                     css_id='left'),
                 Div(*field_set2,
@@ -55,43 +57,12 @@ class PersonChange(ModelForm):
                 )
         self.helper.layout = Layout(
             st,
-            ButtonHolder(
-                Submit('submit', 'Save',
-                       css_id='submit-save',
-                       css_class='button white'),
+            FormActions(
+            Submit('save_changes', 'Save', css_class="btn-primary"),
+            Reset('cancel', 'Cancel', css_class="btn"),
             )
         )
         super(PersonChange, self).__init__(*args, **kw)
-
-    def save(self, commit=True, force_insert=False, force_update=False):
-        instance = super(PersonChange, self).save(commit=False)
-        person = Person.objects.get(pk=1)
-
-        for key in instance.__dict__:
-            value = instance.__dict__[key]
-            instance.__dict__[key] = value if value else person.__dict__[key]
-
-        stripped = strip_tags(strip_entities(instance.bio))
-        try:
-            stripped.split()
-        except AttributeError:
-            pass
-        else:
-            if not bool(stripped.split()):
-                instance.bio = ''
-
-        stripped = strip_tags(strip_entities(instance.other_contacts))
-        try:
-            stripped.split()
-        except AttributeError:
-            pass
-        else:
-            if not bool(stripped.split()):
-                instance.other_contacts = ''
-
-        if commit:
-            instance.save()
-        return instance
 
     class Meta:
         model = Person

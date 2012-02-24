@@ -25,7 +25,13 @@ div {
 #foot .bord {
 	border: 1px solid grey;
 	}
-a:link, a:visited {
-	text-decoration: underline;
-	color: blue;
-	}
+.asteriskField {
+    display: none;
+}
+input[type='text'], input[type='password'] {
+	width: 150px;
+}
+.PersonChangeForm { 
+	min-width: 660px;
+	
+}
