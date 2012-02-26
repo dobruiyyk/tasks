@@ -37,8 +37,8 @@ class PersonChange(ModelForm):
         self.helper.form_action = '/form/'
         self.helper.form_style = 'inline'
 
-#        self.fields.pop('contacts')
-#        self.fields.pop('photo')
+        self.fields.pop('contacts')
+        self.fields.pop('photo')
 
         field_set = self.fields
         field_set1 = list(field_set)[:4]
