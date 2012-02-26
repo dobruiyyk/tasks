@@ -9,7 +9,7 @@ class PersonChange(ModelForm):
     ''' form that allows to edit data, presented on the main page
     '''
     def __init__(self, *args, **kw):
-        super(ModelForm, self).__init__(*args, **kw)
+        super(PersonChange, self).__init__(*args, **kw)
         self.helper = FormHelper()
         self.helper.form_id = 'id-PersonChange'
         self.helper.form_class = 'blueForms'
@@ -43,7 +43,6 @@ class PersonChange(ModelForm):
                        css_class='button white'),
             )
         )
-        super(PersonChange, self).__init__(*args, **kw)
 
     class Meta:
         model = Person
