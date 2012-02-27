@@ -50,7 +50,7 @@ class TemplateTagsTestCase(TestCase):
                 'person': Person.objects.get(pk=1)
             }))
         self.assertEqual(out,
-                "<a href='/admin/personal_info/person/1/'>Edit (admin)</a>")
+                "/admin/personal_info/person/1/")
 
     def test_parsing_errors(self):
         "template tag won't parse anything but onject"
