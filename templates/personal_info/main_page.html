@@ -16,7 +16,7 @@
 				{% load edit_link %}
             	<a href="{% edit_link request.user %}">Edit (admin)</a>
             {% else %}
-            	<a href="{% url auth_login %}">Edit (log in)</a>
+            	<a href="{% url auth_login %}">Edit (admin)</a>
             {% endif %}
  		</div>
 		<div id='clear'></div>
