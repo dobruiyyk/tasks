@@ -65,7 +65,6 @@ class PersonChange(ModelForm):
             Reset('cancel', 'Cancel', css_class="btn"),
             )
         )
-        super(PersonChange, self).__init__(*args, **kw)
 
     class Meta:
         model = Person
