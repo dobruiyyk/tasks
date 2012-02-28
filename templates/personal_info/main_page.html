@@ -11,9 +11,15 @@
 			{% else %}
 				<a href="{% url auth_login %}">login</a>
 			{% endif %}
-			{% endcomment %}
-			{% load edit_link %}
-            {% edit_link request.user %}
+			
+			{% if user.is_authenticated %}
+				{% load edit_link %}
+            	<a href="{% edit_link request.user %}">Edit (admin)</a>
+            {% else %}
+            	<a href="{% url auth_login %}">Edit (log in)</a>
+            {% endif %}{% endcomment %}
+            {% load edit_link %}
+            <a href="{% edit_link request.user %}">Edit (admin)</a>
 		</div>
 		<div id='clear'></div>
 		
