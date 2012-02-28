@@ -24,7 +24,7 @@ class DbEntry(models.Model):
     '''model for entries about the object creation/editing/deletion
     '''
     model = models.CharField(max_length=30)
-    object = models.CharField(max_length=30)
+    object = models.CharField(max_length=100)
     comment = models.CharField(max_length=30)
     time = models.DateTimeField(default=datetime.datetime.now)
 

@@ -9,9 +9,35 @@ from django.core.management import call_command
 import sys
 from django.utils.unittest.result import TestResult
 from StringIO import StringIO
-import textwrap
-from django.utils.unittest import result
-import traceback
+from apps.tools.models import DbEntry
+
+
+class SignalsTestCase(TestCase):
+    '''test signal processor that, for every model,
+    creates the db entry about the object creation/editing/deletion
+    '''
+    def testObjectSpy(self):
+        num = DbEntry.objects.all().count
+        init_num = num()
+        c = Client()
+        c.get('/')
+        self.assertEqual(1, num() - init_num)
+        obj = DbEntry.objects.order_by('-time')[0]
+        self.assertEqual(obj.model, 'HttpRequest')
+        self.assertEqual(obj.object, 'Object: http GET request from 127.0.0.1')
+        self.assertEqual(obj.comment, 'created')
+
+        init_num = num()
+        obj.delete()
+        self.assertEqual(num(), init_num)
+        obj = DbEntry.objects.order_by('-time')[0]
+        self.assertEqual(obj.model, 'DbEntry')
+        self.assertEqual(obj.comment, 'deleted')
+
+        init_num = num()
+        obj.pk += 130
+        obj.save()
+        self.assertNotEqual(num(), init_num)
 
 
 class RequestMWTestCase(TestCase):
