@@ -6,6 +6,12 @@ from django.test.client import Client
 from apps.personal_info.models import Person
 from django.template import Template, Context, TemplateSyntaxError
 from django.core.management import call_command
+import sys
+from django.utils.unittest.result import TestResult
+from StringIO import StringIO
+import textwrap
+from django.utils.unittest import result
+import traceback
 
 
 class RequestMWTestCase(TestCase):
@@ -51,7 +57,7 @@ class TemplateTagsTestCase(TestCase):
                 'person': Person.objects.get(pk=1)
             }))
         self.assertEqual(out,
-                "<a href='/admin/personal_info/person/1/'>Edit (admin)</a>")
+                "/admin/personal_info/person/1/")
 
     def test_parsing_errors(self):
         "template tag won't parse anything but onject"
@@ -59,14 +65,87 @@ class TemplateTagsTestCase(TestCase):
 
         self.assertRaises(TemplateSyntaxError, render,
                           "{% load edit_link %}{% edit_link bla-bla %}")
-
+"""
 class PrintModelsCommandTestCase(TestCase):
     '''Create django command that prints all project models and the count of 
     objects in every model
     '''
     def test_run_command(self):
         self.assertEqual(None, call_command('print_models'))
+"""
+class PrintModelsCommandTestCase(TestCase):
+
+    def setUp(self):
+        self._real_out = sys.stdout
+        self._real_err = sys.stderr
+
+    def tearDown(self):
+        sys.stdout = self._real_out
+        sys.stderr = self._real_err
+
+    def testBufferOutputOff(self):
+        real_out = self._real_out
+        real_err = self._real_err
+
+        result = TestResult()
+        self.assertFalse(result.buffer)
+
+        self.assertIs(real_out, sys.stdout)
+        self.assertIs(real_err, sys.stderr)
+
+        result.startTest(self)
+
+        self.assertIs(real_out, sys.stdout)
+        self.assertIs(real_err, sys.stderr)
+
+    def testBufferOutputStartTestAddSuccess(self):
+        real_out = self._real_out
+        real_err = self._real_err
+
+        result = TestResult()
+        self.assertFalse(result.buffer)
+
+        result.buffer = True
+
+        self.assertIs(real_out, sys.stdout)
+        self.assertIs(real_err, sys.stderr)
+
+        result.startTest(self)
+
+        self.assertIsNot(real_out, sys.stdout)
+        self.assertIsNot(real_err, sys.stderr)
+        self.assertIsInstance(sys.stdout, StringIO)
+        self.assertIsInstance(sys.stderr, StringIO)
+        self.assertIsNot(sys.stdout, sys.stderr)
+
+        out_stream = sys.stdout
+        err_stream = sys.stderr
+
+        result._original_stdout = StringIO()
+        result._original_stderr = StringIO()
+
+#        print 'foo'
+#        print >> sys.stderr, 'bar'
+        call_command('print_models')
         
+        self.assertEqual(out_stream.getvalue(), 'Model : Permission, count : 33\nModel : Group, count : 0\nModel : User, count : 1\nModel : Message, count : 0\nModel : ContentType, count : 11\nModel : Session, count : 0\nModel : Site, count : 1\nModel : LogEntry, count : 0\nModel : Person, count : 1\nModel : HttpRequest, count : 0\nModel : DbEntry, count : 72\n')
+        self.assertEqual(err_stream.getvalue(), 'error: Model : Permission, count : 33\n\nerror: Model : Group, count : 0\n\nerror: Model : User, count : 1\n\nerror: Model : Message, count : 0\n\nerror: Model : ContentType, count : 11\n\nerror: Model : Session, count : 0\n\nerror: Model : Site, count : 1\n\nerror: Model : LogEntry, count : 0\n\nerror: Model : Person, count : 1\n\nerror: Model : HttpRequest, count : 0\n\nerror: Model : DbEntry, count : 72\n\n')
+
+        self.assertEqual(result._original_stdout.getvalue(), '')
+        self.assertEqual(result._original_stderr.getvalue(), '')
+
+        result.addSuccess(self)
+        result.stopTest(self)
+
+        self.assertIs(sys.stdout, result._original_stdout)
+        self.assertIs(sys.stderr, result._original_stderr)
+
+        self.assertEqual(result._original_stdout.getvalue(), '')
+        self.assertEqual(result._original_stderr.getvalue(), '')
+
+        self.assertEqual(out_stream.getvalue(), '')
+        self.assertEqual(err_stream.getvalue(), '')
+
 from os import path
 from windmill.authoring import djangotest
 import os
