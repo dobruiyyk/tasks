@@ -128,8 +128,8 @@ class PrintModelsCommandTestCase(TestCase):
 #        print >> sys.stderr, 'bar'
         call_command('print_models')
         
-        self.assertEqual(out_stream.getvalue(), 'Model : Permission, count : 30\nModel : Group, count : 0\nModel : User, count : 1\nModel : Message, count : 0\nModel : ContentType, count : 10\nModel : Session, count : 0\nModel : Site, count : 1\nModel : LogEntry, count : 0\nModel : Person, count : 1\nModel : HttpRequest, count : 0\n')
-        self.assertEqual(err_stream.getvalue(), 'error: Model : Permission, count : 30\n\nerror: Model : Group, count : 0\n\nerror: Model : User, count : 1\n\nerror: Model : Message, count : 0\n\nerror: Model : ContentType, count : 10\n\nerror: Model : Session, count : 0\n\nerror: Model : Site, count : 1\n\nerror: Model : LogEntry, count : 0\n\nerror: Model : Person, count : 1\n\nerror: Model : HttpRequest, count : 0\n\n')
+        self.assertEqual(out_stream.getvalue(), 'Model : Permission, count : 33\nModel : Group, count : 0\nModel : User, count : 1\nModel : Message, count : 0\nModel : ContentType, count : 11\nModel : Session, count : 0\nModel : Site, count : 1\nModel : LogEntry, count : 0\nModel : Person, count : 1\nModel : HttpRequest, count : 0\nModel : DbEntry, count : 72\n')
+        self.assertEqual(err_stream.getvalue(), 'error: Model : Permission, count : 33\n\nerror: Model : Group, count : 0\n\nerror: Model : User, count : 1\n\nerror: Model : Message, count : 0\n\nerror: Model : ContentType, count : 11\n\nerror: Model : Session, count : 0\n\nerror: Model : Site, count : 1\n\nerror: Model : LogEntry, count : 0\n\nerror: Model : Person, count : 1\n\nerror: Model : HttpRequest, count : 0\n\nerror: Model : DbEntry, count : 72\n\n')
 
         self.assertEqual(result._original_stdout.getvalue(), '')
         self.assertEqual(result._original_stderr.getvalue(), '')
