@@ -5,7 +5,7 @@ pyflakes:
 
 test:
 	clear
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.AuthTestCase personal_info.FilesTestCase personal_info.FormTestCase tools.RequestMWTestCase tools.TemplateTagsTestCase tools.PrintModelsCommandTestCase
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.AuthTestCase personal_info.FilesTestCase personal_info.FormTestCase tools.RequestMWTestCase tools.TemplateTagsTestCase tools.PrintModelsCommandTestCase tools.SignalsTestCase
 
 run:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) runserver

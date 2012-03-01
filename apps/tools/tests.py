@@ -9,6 +9,34 @@ from django.core.management import call_command
 import sys
 from django.utils.unittest.result import TestResult
 from StringIO import StringIO
+from apps.tools.models import DbEntry
+
+
+class SignalsTestCase(TestCase):
+    '''test signal processor that, for every model,
+    creates the db entry about the object creation/editing/deletion
+    '''
+    def testObjectSpy(self):
+        num = DbEntry.objects.all().count
+        init_num = num()
+        c = Client()
+        c.get('/')
+        self.assertEqual(1, num() - init_num)
+        obj = DbEntry.objects.order_by('-time')[0]
+        self.assertEqual(obj.model, 'HttpRequest')
+        self.assertEqual(obj.object, 'Object: http GET request from 127.0.0.1')
+        self.assertEqual(obj.comment, 'created')
+
+        init_num = num()
+        obj.delete()
+        self.assertEqual(num(), init_num)
+        obj = DbEntry.objects.order_by('-time')[0]
+        self.assertEqual(obj.model, 'DbEntry')
+        self.assertEqual(obj.comment, 'deleted')
+
+        init_num = num()
+        obj.save()
+        self.assertEqual(1, num() - init_num)
 
 
 class RequestMWTestCase(TestCase):
@@ -117,8 +145,8 @@ class PrintModelsCommandTestCase(TestCase):
 #        print >> sys.stderr, 'bar'
         call_command('print_models')
         
-        self.assertEqual(out_stream.getvalue(), 'Model : Permission, count : 30\nModel : Group, count : 0\nModel : User, count : 1\nModel : Message, count : 0\nModel : ContentType, count : 10\nModel : Session, count : 0\nModel : Site, count : 1\nModel : LogEntry, count : 0\nModel : Person, count : 1\nModel : HttpRequest, count : 0\n')
-        self.assertEqual(err_stream.getvalue(), 'error: Model : Permission, count : 30\n\nerror: Model : Group, count : 0\n\nerror: Model : User, count : 1\n\nerror: Model : Message, count : 0\n\nerror: Model : ContentType, count : 10\n\nerror: Model : Session, count : 0\n\nerror: Model : Site, count : 1\n\nerror: Model : LogEntry, count : 0\n\nerror: Model : Person, count : 1\n\nerror: Model : HttpRequest, count : 0\n\n')
+        self.assertEqual(out_stream.getvalue(), 'Model : Permission, count : 33\nModel : Group, count : 0\nModel : User, count : 1\nModel : Message, count : 0\nModel : ContentType, count : 11\nModel : Session, count : 0\nModel : Site, count : 1\nModel : LogEntry, count : 0\nModel : Person, count : 1\nModel : HttpRequest, count : 0\nModel : DbEntry, count : 72\n')
+        self.assertEqual(err_stream.getvalue(), 'error: Model : Permission, count : 33\n\nerror: Model : Group, count : 0\n\nerror: Model : User, count : 1\n\nerror: Model : Message, count : 0\n\nerror: Model : ContentType, count : 11\n\nerror: Model : Session, count : 0\n\nerror: Model : Site, count : 1\n\nerror: Model : LogEntry, count : 0\n\nerror: Model : Person, count : 1\n\nerror: Model : HttpRequest, count : 0\n\nerror: Model : DbEntry, count : 72\n\n')
 
         self.assertEqual(result._original_stdout.getvalue(), '')
         self.assertEqual(result._original_stderr.getvalue(), '')
