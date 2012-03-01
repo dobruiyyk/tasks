@@ -9,9 +9,6 @@ from django.core.management import call_command
 import sys
 from django.utils.unittest.result import TestResult
 from StringIO import StringIO
-import textwrap
-from django.utils.unittest import result
-import traceback
 
 
 class RequestMWTestCase(TestCase):
@@ -65,19 +62,13 @@ class TemplateTagsTestCase(TestCase):
 
         self.assertRaises(TemplateSyntaxError, render,
                           "{% load edit_link %}{% edit_link bla-bla %}")
-"""
-class PrintModelsCommandTestCase(TestCase):
-    '''Create django command that prints all project models and the count of 
-    objects in every model
-    '''
-    def test_run_command(self):
-        self.assertEqual(None, call_command('print_models'))
-"""
+
 class PrintModelsCommandTestCase(TestCase):
 
     def setUp(self):
         self._real_out = sys.stdout
         self._real_err = sys.stderr
+#        sys.stdout = 1
 
     def tearDown(self):
         sys.stdout = self._real_out
