@@ -1,0 +1,12 @@
+*.pyc
+*~
+*.db
+.coverage
+.project
+.pydevproject
+.env/*
+apache/*
+media/photo/*
+build*
+logs/*
+*dat
