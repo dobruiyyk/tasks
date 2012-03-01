@@ -35,9 +35,8 @@ class SignalsTestCase(TestCase):
         self.assertEqual(obj.comment, 'deleted')
 
         init_num = num()
-        obj.pk += 130
         obj.save()
-        self.assertNotEqual(num(), init_num)
+        self.assertEqual(1, num() - init_num)
 
 
 class RequestMWTestCase(TestCase):

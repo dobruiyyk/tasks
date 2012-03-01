@@ -10,7 +10,7 @@ class HttpRequestOrderAdmin(admin.ModelAdmin):
 
 
 class DbEntryAdmin(admin.ModelAdmin):
-    list_display = ('model', 'object', 'comment', 'time')
+    list_display = ('model', 'object', 'comment', 'time', 'pk')
     list_filter = ('model', 'comment', 'time')
 
 admin.site.register(HttpRequest, HttpRequestOrderAdmin)
