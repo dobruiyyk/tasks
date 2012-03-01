@@ -1,7 +1,10 @@
 MANAGE=django-admin.py
 
+pyflakes:
+	pyflakes apps settings.py urls.py
+
 test:
-	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.FilesTestCase
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.FilesTestCase tools.RequestMWTestCase
 
 run:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) runserver
@@ -11,3 +14,7 @@ syncdb:
 
 windmill:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test tools
+
+shell:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) shell

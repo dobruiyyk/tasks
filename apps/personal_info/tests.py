@@ -5,7 +5,7 @@ from apps.personal_info.models import Person
 
 
 class FilesTestCase(TestCase):
-    def testFiles(self):
+    def test_files(self):
         '''Files existance check -*-.gitignore, Makefile, requrements.txt -*-
         '''
         is_file = os.path.isfile
@@ -13,7 +13,7 @@ class FilesTestCase(TestCase):
         self.assertEqual(True, is_file('Makefile'))
         self.assertEqual(True, is_file('requirements.txt'))
 
-    def testFixture(self):
+    def test_fixture(self):
         '''Fixture check -*- default admin@admin user presence + info-*-
         '''
         admin = User.objects.get(username='admin')

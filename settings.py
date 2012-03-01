@@ -21,13 +21,11 @@ DATABASES = {
     }
 }
 FIXTURE_DIRS = (
-   project_dir + '/fixtures/',
-   project_dir + '/apps/personal_info/fixtures/',
-   project_dir + '/apps/tools/fixtures/',
+   os.path.join(project_dir, 'fixtures'),
+   os.path.join(project_dir, 'apps', 'personal_info', 'fixtures'),
+   os.path.join(project_dir, 'apps', 'tools', 'fixtures'),
 )
 
-TEST_RUNNER = 'django-test-coverage.runner.run_tests'
-COVERAGE_MODULES = ['apps.personal_info']
 
 TEMPLATE_CONTEXT_PROCESSORS = (
 'django.core.context_processors.request',
@@ -64,7 +62,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = project_dir + '/media/'
+MEDIA_ROOT = os.path.join(project_dir, '/media/')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -118,12 +116,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'apps.tools.middleware.save_httprequest_to_db',
 )
 
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
-    project_dir + '/templates',
+    os.path.join(project_dir, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -138,6 +137,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'apps.personal_info',
+    'apps.tools',
 )
 
 # A sample logging configuration. The only tangible logging
