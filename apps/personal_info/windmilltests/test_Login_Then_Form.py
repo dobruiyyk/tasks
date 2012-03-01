@@ -55,33 +55,3 @@ def test_LoginRedirectForm():
 
     client.asserts.assertNode(xpath=u"//div[@id='foot']/p")
     client.asserts.assertNode(link=u'requests')
-
-
-def test_FormReversed():
-    client = WindmillTestClient(__name__)
-
-    client.click(link=u'Change info')
-    client.waits.forPageLoad(timeout=u'20000')
-    client.waits.forElement(xpath=u"//form[@id='id-PersonChange']/fieldset/h3",
-                            timeout=u'8000')
-    client.click(xpath=u"//form[@id='id-PersonChange']/fieldset/h3")
-    client.click(xpath=u"//div[@id='div_id_bio']/label")
-    client.click(id=u'id_bio')
-    client.click(xpath=u"//div[@id='div_id_birth']/label")
-    client.click(id=u'id_birth')
-    client.click(xpath=u"//div[@id='div_id_last_name']/label")
-    client.click(id=u'id_last_name')
-    client.click(xpath=u"//div[@id='div_id_name']/label")
-    client.click(id=u'id_name')
-    client.click(xpath=u"//div[@id='div_id_other_contacts']/label")
-    client.click(id=u'id_other_contacts')
-    client.click(xpath=u"//div[@id='div_id_skype']/label")
-    client.click(id=u'id_skype')
-    client.click(xpath=u"//div[@id='div_id_jabber']/label")
-    client.click(id=u'id_jabber')
-    client.click(xpath=u"//div[@id='div_id_email']/label")
-    client.click(id=u'id_email')
-    client.asserts.assertNode(id=u'div_id_bio')
-    client.asserts.assertNode(id=u'div_id_birth')
-    client.asserts.assertNode(id=u'div_id_last_name')
-    client.asserts.assertNode(id=u'div_id_name')
