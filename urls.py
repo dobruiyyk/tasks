@@ -9,6 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+
     url(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve',
                 {'document_root': '%s/media/js/tiny_mce/' % project_dir}),
 

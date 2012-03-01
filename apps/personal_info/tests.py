@@ -5,6 +5,9 @@ from apps.personal_info.models import Person
 
 
 class FilesTestCase(TestCase):
+
+    '''ticket1 : required files
+    '''
     def test_files(self):
         '''Files existance check -*-.gitignore, Makefile, requrements.txt -*-
         '''
