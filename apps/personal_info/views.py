@@ -32,5 +32,6 @@ def main_page_form(request):
 
     return render_to_response('personal_info/main_page_form.html',
                               {'form': form,
+                               'form_class': PersonChange,
                                'object': person},
                               context_instance=RequestContext(request))

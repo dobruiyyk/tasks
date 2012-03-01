@@ -77,7 +77,8 @@ class FormTestCase(WebTest):
         self.assertEqual(res.status, '200 OK')
         form = self.app.get('/form/').forms
 
-        for field in ('bio', 'last_name', 'name', 'contacts',
+        for field in ('bio', 'last_name', 'name',
+#                      'contacts',
                       'email', 'other_contacts', 'skype', 'jabber'):
             form = self.app.get('/form/').form
             form[field] = '1@1.com'
