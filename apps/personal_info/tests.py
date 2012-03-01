@@ -98,6 +98,7 @@ class FormTestCase(WebTest):
         reversed_fields1.reverse()
         reversed_fields2.reverse()
         reversed_fields = reversed_fields1 + reversed_fields2
+
         reversed_fields.pop(reversed_fields.index('photo'))
 
         temp1 = temp2 = 0
@@ -111,7 +112,8 @@ class FormTestCase(WebTest):
                       field2, context.index(field2)
                 '''
                 self.assertEqual(context.index(field1, temp1) <
-                                 context.index(field2, temp2), True)
+                                 context.index(field2, temp2),
+                                 True)
                 temp1 = context.index(field1)
                 temp2 = context.index(field2)
 
