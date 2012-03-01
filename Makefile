@@ -4,6 +4,7 @@ pyflakes:
 	pyflakes apps settings.py urls.py
 
 test:
+	clear
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=settings $(MANAGE) test personal_info.AuthTestCase personal_info.FilesTestCase personal_info.FormTestCase tools.RequestMWTestCase
 
 run:

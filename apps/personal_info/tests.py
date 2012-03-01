@@ -85,6 +85,39 @@ class FormTestCase(WebTest):
             response = form.submit().follow()
             self.assertEqual(response.context['object'][field], '1@1.com')
 
+    def test_form_reversed(self):
+        '''Are fields reversed?
+        '''
+        c = Client()
+        c.login(username='admin', password='admin')
+        response = c.get('/form/')
+        context = response.context.__str__()
+        form = response.context['form']
+        form_fields = form.fields.keyOrder
+        reversed_fields1 = form_fields[:4]
+        reversed_fields2 = form_fields[4:]
+        reversed_fields1.reverse()
+        reversed_fields2.reverse()
+        reversed_fields = reversed_fields1 + reversed_fields2
+
+        reversed_fields.pop(reversed_fields.index('photo'))
+
+        temp1 = temp2 = 0
+        for i in range(0, len(reversed_fields), 1):
+            two_fields = reversed_fields[i - 2:i + 1]
+            if two_fields:
+                field1 = two_fields[0]
+                field2 = two_fields[1]
+                '''
+                print '\n', field1, context.index(field1),\
+                      field2, context.index(field2)
+                '''
+                self.assertEqual(context.index(field1, temp1) <
+                                 context.index(field2, temp2),
+                                 True)
+                temp1 = context.index(field1)
+                temp2 = context.index(field2)
+
 from os import path
 from windmill.authoring import djangotest
 
