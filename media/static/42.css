@@ -25,10 +25,6 @@ div {
 #foot .bord {
 	border: 1px solid grey;
 	}
-a:link, a:visited {
-	text-decoration: underline;
-	color: blue;
-	}
 #submit-save {
 	float:left;
 	margin-right : 5px;
