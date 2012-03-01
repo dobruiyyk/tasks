@@ -1,5 +1,6 @@
 div {
 	padding : 5px;
+	margin-top : 5px;
 	}
 #content {
 	min-width: 600px;
@@ -24,3 +25,10 @@ div {
 #foot .bord {
 	border: 1px solid grey;
 	}
+#submit-save {
+	float:left;
+	margin-right : 5px;
+	}
+.asteriskField {
+    display: none;
+}
