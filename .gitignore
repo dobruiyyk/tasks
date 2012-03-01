@@ -5,6 +5,7 @@
 .project
 .pydevproject
 .env/*
+<<<<<<< HEAD
 apache/*
 media/photo/*
 build*
