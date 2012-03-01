@@ -2,7 +2,7 @@ from django.forms.models import ModelForm
 from apps.personal_info.models import Person
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
-from crispy_forms.layout import Div, Fieldset, HTML, Reset
+from crispy_forms.layout import Div, Fieldset, Reset
 from django import forms
 from django.conf import settings
 from crispy_forms.bootstrap import FormActions
@@ -43,10 +43,10 @@ class PersonChange(ModelForm):
 
         field_set = self.fields
         field_set1 = list(field_set)[:4]
-        field_set1.append(HTML("""
-        <div id='rovd'>
-        <img style='width:100%' src='{{ object.photo }}' />
-        </div>"""))
+#        field_set1.append(HTML("""
+#        <div id='rovd'>
+#        <img style='width:100%' src='{{ object.photo }}' />
+#        </div>"""))
         field_set2 = list(field_set)[4:]
 
         field_set1.reverse()
@@ -66,7 +66,6 @@ class PersonChange(ModelForm):
             Reset('cancel', 'Cancel', css_class="btn"),
             )
         )
-        super(PersonChange, self).__init__(*args, **kw)
 
     def clean(self):
         super(PersonChange, self).clean()

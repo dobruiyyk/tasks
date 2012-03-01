@@ -9,4 +9,4 @@ apache/*
 media/photo/*
 build*
 logs/*
-*dat
+dat

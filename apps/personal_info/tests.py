@@ -100,7 +100,7 @@ class FormTestCase(WebTest):
         reversed_fields2.reverse()
         reversed_fields = reversed_fields1 + reversed_fields2
 
-        reversed_fields.pop(reversed_fields.index('photo'))
+#        reversed_fields.pop(reversed_fields.index('photo'))
 
         temp1 = temp2 = 0
         for i in range(0, len(reversed_fields), 1):

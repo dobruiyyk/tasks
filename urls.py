@@ -4,7 +4,6 @@ from apps.tools.views import requests
 from django.contrib.auth import views as auth_views
 from apps.personal_info.views import main_page_form
 import os
-
 from django.contrib import admin
 admin.autodiscover()
 

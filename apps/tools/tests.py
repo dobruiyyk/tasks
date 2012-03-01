@@ -3,6 +3,12 @@ from apps.tools.models import HttpRequest
 from django.test.utils import setup_test_environment
 setup_test_environment()
 from django.test.client import Client
+from apps.personal_info.models import Person
+from django.template import Template, Context, TemplateSyntaxError
+from django.core.management import call_command
+import sys
+from django.utils.unittest.result import TestResult
+from StringIO import StringIO
 
 
 class RequestMWTestCase(TestCase):
@@ -32,6 +38,102 @@ class RequestMWTestCase(TestCase):
         '''
         from django.conf import settings
         self.assertEqual(True, bool(settings.TEMPLATE_CONTEXT_PROCESSORS))
+
+
+class TemplateTagsTestCase(TestCase):
+    '''tag accepts any object and renders the link to its admin edit page
+    ('{% edit_link request.user %}')
+    '''
+    def test_get_tag_for_pk1_user(self):
+        "tag for Person.objects.get(pk=1)"
+        out = Template(
+                "{% load edit_link %}"
+                "{% edit_link person %}"
+            ).render(Context({
+                'person': Person.objects.get(pk=1)
+            }))
+        self.assertEqual(out, "/admin/personal_info/person/1/")
+
+    def test_parsing_errors(self):
+        "template tag won't parse anything but onject"
+        render = lambda t: Template(t).render(Context())
+
+        self.assertRaises(TemplateSyntaxError, render,
+                          "{% load edit_link %}{% edit_link bla-bla %}")
+
+class PrintModelsCommandTestCase(TestCase):
+
+    def setUp(self):
+        self._real_out = sys.stdout
+        self._real_err = sys.stderr
+#        sys.stdout = 1
+
+    def tearDown(self):
+        sys.stdout = self._real_out
+        sys.stderr = self._real_err
+
+    def testBufferOutputOff(self):
+        real_out = self._real_out
+        real_err = self._real_err
+
+        result = TestResult()
+        self.assertFalse(result.buffer)
+
+        self.assertIs(real_out, sys.stdout)
+        self.assertIs(real_err, sys.stderr)
+
+        result.startTest(self)
+
+        self.assertIs(real_out, sys.stdout)
+        self.assertIs(real_err, sys.stderr)
+
+    def testBufferOutputStartTestAddSuccess(self):
+        real_out = self._real_out
+        real_err = self._real_err
+
+        result = TestResult()
+        self.assertFalse(result.buffer)
+
+        result.buffer = True
+
+        self.assertIs(real_out, sys.stdout)
+        self.assertIs(real_err, sys.stderr)
+
+        result.startTest(self)
+
+        self.assertIsNot(real_out, sys.stdout)
+        self.assertIsNot(real_err, sys.stderr)
+        self.assertIsInstance(sys.stdout, StringIO)
+        self.assertIsInstance(sys.stderr, StringIO)
+        self.assertIsNot(sys.stdout, sys.stderr)
+
+        out_stream = sys.stdout
+        err_stream = sys.stderr
+
+        result._original_stdout = StringIO()
+        result._original_stderr = StringIO()
+
+#        print 'foo'
+#        print >> sys.stderr, 'bar'
+        call_command('print_models')
+        
+        self.assertEqual(out_stream.getvalue(), 'Model : Permission, count : 30\nModel : Group, count : 0\nModel : User, count : 1\nModel : Message, count : 0\nModel : ContentType, count : 10\nModel : Session, count : 0\nModel : Site, count : 1\nModel : LogEntry, count : 0\nModel : Person, count : 1\nModel : HttpRequest, count : 0\n')
+        self.assertEqual(err_stream.getvalue(), 'error: Model : Permission, count : 30\n\nerror: Model : Group, count : 0\n\nerror: Model : User, count : 1\n\nerror: Model : Message, count : 0\n\nerror: Model : ContentType, count : 10\n\nerror: Model : Session, count : 0\n\nerror: Model : Site, count : 1\n\nerror: Model : LogEntry, count : 0\n\nerror: Model : Person, count : 1\n\nerror: Model : HttpRequest, count : 0\n\n')
+
+        self.assertEqual(result._original_stdout.getvalue(), '')
+        self.assertEqual(result._original_stderr.getvalue(), '')
+
+        result.addSuccess(self)
+        result.stopTest(self)
+
+        self.assertIs(sys.stdout, result._original_stdout)
+        self.assertIs(sys.stderr, result._original_stderr)
+
+        self.assertEqual(result._original_stdout.getvalue(), '')
+        self.assertEqual(result._original_stderr.getvalue(), '')
+
+        self.assertEqual(out_stream.getvalue(), '')
+        self.assertEqual(err_stream.getvalue(), '')
 
 from os import path
 from windmill.authoring import djangotest
